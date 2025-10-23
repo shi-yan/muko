@@ -4,7 +4,7 @@ A command-line utility to manage hosts file entries and quickly toggle between d
 
 ## Name Origin
 
-The name **muko** comes from **向こう側 (mukō-gawa)**, meaning "the other side" in Japanese. This concept is famously featured in the Silent Hill video game series, where characters shift between the normal world and a dark, otherworldly dimension. Similarly, this tool lets you seamlessly switch between the "other side" of your development environment and the production reality.
+The name **muko** comes from **向こう側 (mukō-gawa)**, meaning "the other side" in Japanese. This concept is famously featured in the Silent Hill video game series, where characters shift between the normal world and a dark, otherworldly dimension. Similarly, this tool lets you seamlessly switch between the "other side" of your development environment and the production reality.
 
 ## Motivation
 
