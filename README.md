@@ -37,6 +37,12 @@ Simply run `muko` without any arguments to see all domains managed by muko:
 
 ```bash
 muko
+Muko-managed domains:
+┌──────┬───────────────────────┬──────────┬───────────┬─────────┐
+│ Mode ┆ Domain                ┆ Alias    ┆ Dev IP    ┆ Prod IP │
+╞══════╪═══════════════════════╪══════════╪═══════════╪═════════╡
+│ DEV  ┆ example.myapp.app     ┆ myapp    ┆ 127.0.0.1 ┆         │
+└──────┴───────────────────────┴──────────┴───────────┴─────────┘
 ```
 
 This displays a table showing:
@@ -87,6 +93,14 @@ sudo muko prod example.com
 
 # Using alias
 sudo muko prod myapp
+
+Muko-managed domains:
+┌──────┬───────────────────────┬──────────┬───────────┬───────────────┐
+│ Mode ┆ Domain                ┆ Alias    ┆ Dev IP    ┆ Prod IP       │
+╞══════╪═══════════════════════╪══════════╪═══════════╪═══════════════╡
+│ PROD ┆ example.myapp.app.    ┆ myapp    ┆ 127.0.0.1 ┆ 140.210.45.28 │
+└──────┴───────────────────────┴──────────┴───────────┴───────────────┘
+
 ```
 
 In PROD mode, the domain entry is commented out, so DNS resolution falls back to the real production IP address.
