@@ -6,6 +6,8 @@ use regex::Regex;
 use std::fs::{self, OpenOptions};
 use std::io::{self, BufRead, BufReader, Write};
 use std::path::Path;
+use std::thread;
+use std::time::Duration;
 
 #[derive(Parser)]
 #[command(name = "muko")]
@@ -296,10 +298,34 @@ fn parse_muko_entries() -> io::Result<Vec<MukoManagedDomain>> {
             };
 
             // Resolve DNS to get the real IP address
-            let prod_ip = lookup_host(&domain)
-                .ok()
-                .and_then(|ips| ips.into_iter().next())
-                .map(|ip| ip.to_string());
+            // Only do this in PROD mode; in DEV mode we don't need it
+            let prod_ip = if !active {
+                // PROD mode: retry up to 3 times until we get a different IP than dev_ip
+                let mut resolved_ip = None;
+                for attempt in 1..=3 {
+                    if let Some(lookup_ip) = lookup_host(&domain)
+                        .ok()
+                        .and_then(|ips| ips.into_iter().next())
+                        .map(|ip| ip.to_string())
+                    {
+                        // If the resolved IP is different from dev IP, we found the real prod IP
+                        if lookup_ip != ip {
+                            resolved_ip = Some(lookup_ip);
+                            break;
+                        }
+                        resolved_ip = Some(lookup_ip);
+                    }
+
+                    // Wait a bit before retrying (except on last attempt)
+                    if attempt < 3 {
+                        thread::sleep(Duration::from_millis(100));
+                    }
+                }
+                resolved_ip
+            } else {
+                // DEV mode: no lookup needed, won't be displayed
+                None
+            };
 
             entries.push(MukoManagedDomain {
                 ip,
