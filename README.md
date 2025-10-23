@@ -24,7 +24,7 @@ As a developer, I often need to test applications locally by redirecting product
 Install directly from the GitHub repository:
 
 ```bash
-cargo install --git=<git_url>
+cargo install --git=https://github.com/shi-yan/muko.git
 ```
 
 Note: This tool modifies `/etc/hosts`, so you'll need appropriate permissions (typically `sudo`) when running commands that modify the hosts file.
